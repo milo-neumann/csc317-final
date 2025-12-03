@@ -1,4 +1,4 @@
-/* Reset and base styles */
+/* base styles */
 body, html {
   margin: 0;
   padding: 0;
@@ -6,13 +6,13 @@ body, html {
   font-family: Arial, sans-serif;
 }
 
-/* Background image */
+/* background image */
 body {
   background-image: url("images/login-background.jpg");
   background-size: cover;
 }
 
-/* Semi-transparent overlay to improve readability */
+/* semi-transparent overlayy */
 .overlay {
   display: flex;
   justify-content: center;
@@ -21,13 +21,28 @@ body {
   background-color: rgba(0, 0, 0, 0.3); /* dark overlay */
 }
 
-/* Login window */
+/* login window */
 .login-window {
   background-color: #ffffff;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
   width: 350px;
+  
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.login-window {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+form input {
+  display: block;
+  box-sizing: border-box;
 }
 
 .login-window h1 {
