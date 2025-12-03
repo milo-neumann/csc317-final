@@ -1,4 +1,4 @@
-/* Reset and base styles */
+/* base styles */
 body, html {
   margin: 0;
   padding: 0;
@@ -6,13 +6,13 @@ body, html {
   font-family: Arial, sans-serif;
 }
 
-/* Background image */
+/* background image */
 body {
   background-image: url("images/login-background.jpg");
   background-size: cover;
 }
 
-/* Semi-transparent overlay to improve readability */
+/* semi-transparent overlayy */
 .overlay {
   display: flex;
   justify-content: center;
@@ -21,7 +21,7 @@ body {
   background-color: rgba(0, 0, 0, 0.3); /* dark overlay */
 }
 
-/* Login window */
+/* login window */
 .login-window {
   background-color: #ffffff;
   padding: 30px;
