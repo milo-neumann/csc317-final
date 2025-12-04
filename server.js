@@ -9,9 +9,31 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 
+// enable pug
+app.set('view engine', 'pug');
+
 // (Optional) Explicit route for home page
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// stock symbols will bring up the stock template populated with data for that stock
+app.get("/stock/:sym", (req, res) => {
+  const sym = req.params.sym.toUpperCase();
+  const stock = db.prepare("select * from stocks WHERE symbol = ?").get(sym);
+  try {
+    const prices = db.prepare("select * from prices WHERE stock_id = ?").all(stock.id);
+
+    res.render('stock', {symbol: stock.symbol, prices: prices});
+  } catch (error) {
+    console.error(`Error finding ${sym} presumably: `, error);
+    if (!stock) {
+      res.status(404).send(`Stock symbol ${sym} not found`);
+    } else {
+      res.status(500).send("Unknown server error, maybe an issue with Pug template")
+    }
+
+  }
 });
 
 // route to fill out the price database

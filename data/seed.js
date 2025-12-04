@@ -15,11 +15,11 @@ function seed() {
 
   // TODO: select all stock ids from stocks to do a for loop
   const insert = db.prepare(`INSERT INTO prices (stock_id, day, price) VALUES (?, ?, ?)`);
-  insert.run(1, 1, 25 * Math.random());
-  insert.run(1, 2, 25 * Math.random());
-  insert.run(1, 3, 25 * Math.random());
-  insert.run(1, 4, 25 * Math.random());
-
+  
+  for (i = 0; i < 7; i++) {
+      insert.run(1, i + 1, 25 * Math.random());
+  }
+  
   return db.prepare("select stock_id, day, price from prices").all();
 }
 
