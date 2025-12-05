@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+  head 
+    title= symbol
+  body 
+    h1#headline= symbol
+    h2= price_rows[6].price
+    script(type='text/javascript' src='https://www.gstatic.com/charts/loader.js')
+    #chart_div
+    script(type='text/javascript').
+      var prices = !{JSON.stringify(price_rows)};
+      
+
+    // while this .pug is in /views, the rendered html is considered part of /public making pathing unintuitive
+    script(src='/stock.js')
