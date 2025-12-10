@@ -5,15 +5,24 @@
 We are going to create a web-page with a store front to buy and sell stocks on. It will also have a login feature that allows users to view their stock portfolio and performance.
 
 
+## Backend Database Design
 
-## 📊 Database Schema Diagram
-
-This ERD represents the current database structure of our project.
+**Schema Diagram (ERD)**
+This diagram represents the database structure used by the backend.  
+It shows how our two tables (`stocks` and `prices`) relate to each other in a one-to-many relationship (one stock has many daily price entries).
 
 ![Database Schema](./public/images/web-final-dbschema.png)
 
 **Figma Board:**  
 https://www.figma.com/make/OAw71m89MRs7huBarIJp2h/Entity-Relationship-Diagram?node-id=0-1&p=f&t=jVHz2jCEi0GkL6Xx-0&fullscreen=1
 
+### Init, Seeding, and Methods
 
+- **Initialization (`data/database.js`)**  
+  Creates and configures the SQLite database, defining the `stocks` and `prices` tables shown in the ERD.
 
+- **Seeding (`data/seed.js`)**  
+  Populates the `prices` table by generating 365 simulated daily price entries for each stock.
+
+- **Database Methods (`server.js`)**  
+  Performs queries such as retrieving a stock by symbol and fetching its associated price history, using the schema represented in the diagram.
