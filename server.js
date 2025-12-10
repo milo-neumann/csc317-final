@@ -6,6 +6,11 @@ const seed = require(path.join(__dirname, "data", "seed.js"));
 const PORT = process.env.PORT || 3000;
 const session = require("express-session");
 
+
+app.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "login.html"));
+});
+
 // Serve everything in /public as static assets
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
@@ -20,10 +25,6 @@ app.use(session({
 // enable pug
 app.set('view engine', 'pug');
 
-// (Optional) Explicit route for home page
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
 
 // stock symbols will bring up the stock template populated with data for that stock
 app.get("/stock/:sym", (req, res) => {
