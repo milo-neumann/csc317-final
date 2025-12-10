@@ -1,9 +1,9 @@
 // module to initialize and interact with the database
-const Database = require('better-sqlite3');
+const Database = require("better-sqlite3");
 const path = require("path");
 
-const db = new Database(path.join(__dirname, 'database.sqlite'));
-db.pragma('foreign_keys = OFF');
+const db = new Database(path.join(__dirname, "database.sqlite"));
+db.pragma("foreign_keys = OFF");
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS stocks (
@@ -21,5 +21,15 @@ db.exec(`
   price real 
   );
 `);
+db.exec(`
+  CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT UNIQUE NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+`);
+
 
 module.exports = db;
