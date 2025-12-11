@@ -31,6 +31,20 @@ app.use(
   })
 );
 
+// Make currentUser available in all views
+app.use((req, res, next) => {
+  if (req.session.userId) {
+    res.locals.currentUser = {
+      id: req.session.userId,
+      username: req.session.username,
+      email: req.session.email,
+    };
+  } else {
+    res.locals.currentUser = null;
+  }
+  next();
+});
+
 // ----- ROUTERS -----
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
