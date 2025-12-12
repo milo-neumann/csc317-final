@@ -96,6 +96,34 @@ nav span {
   color: var(--text-muted);
 }
 
+nav ul.nav-left {
+  gap: 0.75rem;
+}
+
+nav ul.nav-right {
+  gap: 0.75rem;
+}
+
+/* Brand / site name */
+nav .brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--primary);
+  padding-left: 0;
+  padding-right: 0.5rem;
+}
+
+nav .site-name a.brand {
+  border-radius: 0;        /* no pill background on the name */
+}
+
+nav .site-name a.brand:hover {
+  background: transparent;
+  color: var(--primary);
+  transform: none;
+}
+
+
 /* Log out button in nav (class="secondary" from layout) */
 button.secondary {
   padding: 0.35rem 0.9rem;

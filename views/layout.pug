@@ -9,28 +9,44 @@ html
     if showNav !== false
       header
         nav.container
-          ul
+          // LEFT SIDE: brand + main nav
+          ul.nav-left
             if currentUser
-              li: a(href="/dashboard") My Account
-              li: a(href="/cart") Cart
-              li: a(href="/store") Store
-              li: a(href="/about") About
+              li.site-name
+                a.brand(href="/dashboard") GatorTrade
+              li
+                a(href="/store") Browse Stocks
+              li
+                a(href="/dashboard") My Portfolio
+              li
+                a(href="/about") About
             else
-              li: a(href="/about") About
+              li.site-name
+                a.brand(href="/about") GatorTrade
+              li
+                a(href="/about") About
 
-          ul
+          // RIGHT SIDE: greeting + cart + logout OR auth links
+          ul.nav-right
             if currentUser
-              li: span Hello, #{currentUser.username}
+              li
+                span Hey, #{currentUser.username}!
               li
                 form(method="POST", action="/logout")
-                  button(type="submit" class="secondary") Logout
+                  button(type="submit" class="button-secondary") Logout
+              li
+                a.button-secondary(href="/cart") Cart
             else
-              li: a(href="/login") Login
-              li: a(href="/register") Register
+              li
+                a(href="/login") Login
+              li
+                a(href="/register") Register
 
+    // MAIN CONTENT 
     main.container
       include partials/messages
       block content
 
+    // FOOTER
     footer.container.footer
-      small FOOTER: &copy; 2024 GatorTrade. All rights reserved.
+      small Built with Express, Pug, SQLite, sessions, and bcryptjs.
