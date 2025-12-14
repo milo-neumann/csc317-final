@@ -13,11 +13,26 @@ html
           ul.nav-left
             if currentUser
               li.site-name
-                a.brand(href="/dashboard") GatorTrade
-              li
-                a(href="/store") Browse Stocks
+                a.brand(href="/dashboard") GatorTrade          
               li
                 a(href="/dashboard") My Portfolio
+              li
+                .dropdown
+                  button.dropbtn Stocks&#x25BC;
+                  .dropdown-content
+                    a(href='../stock/abcd') Alphatronics
+                    a(href='../stock/auro') Aurora Market Labs
+                    a(href='../stock/blue') Blue Canary
+                    a(href='../stock/harb') Harborline Logistics
+                    a(href='../stock/hive') HiveMind Fitness
+                    a(href='../stock/live') LiveWire Studios
+                    a(href='../stock/nimb') Nimbus
+                    a(href='../stock/brew') Old Oak Brewing
+                    a(href='../stock/peak') Peak Finance
+                    a(href='../stock/orch') Quantum Orchard
+                    a(href='../stock/sola') Solaris Distributed Systems
+                    a(href='../stock/tide') TidalByte Tech
+                    a(href='../stock/verd') Verdant Cycle
               li
                 a(href="/about") About
             else

@@ -2,15 +2,18 @@ extends layout
 
 block content
   .card.stock-page
-    img#logo(src='/images/' + stock.symbol + '.png')
-    h1= stock.symbol
-    h2= stock.name
-    h2= '$' + price_rows.at(-1).price.toPrecision(5)
-    h3= stock.description
-    // Chart box 
-    script(type='text/javascript' src='https://www.gstatic.com/charts/loader.js')
-    #chart_div
+    #stock_info
+      img#stock_logo(src='/images/' + stock.symbol + '.png')
+      #stock_text
+        h1= stock.symbol
+        h2= stock.name
+        h2= '$' + price_rows.at(-1).price.toPrecision(5)
+        p= stock.description
 
+  .card.stock-page
+    #stock_chart
+      #chart_div
+      script(type='text/javascript' src='https://www.gstatic.com/charts/loader.js')
 
     script(type='text/javascript').
       var prices = !{JSON.stringify(price_rows)};

@@ -18,7 +18,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -49,7 +50,7 @@ header {
   width: 100%;
   background: rgba(255, 255, 255, 0.98);
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
-  padding: 0.9rem 0;       /* thicker bar */
+  padding: 0.9rem 0; /* thicker bar */
   backdrop-filter: blur(8px);
 }
 
@@ -58,7 +59,6 @@ nav.container {
   align-items: center;
   justify-content: space-between;
 }
-
 
 nav {
   display: flex;
@@ -114,7 +114,7 @@ nav .brand {
 }
 
 nav .site-name a.brand {
-  border-radius: 0;        /* no pill background on the name */
+  border-radius: 0; /* no pill background on the name */
 }
 
 nav .site-name a.brand:hover {
@@ -123,6 +123,45 @@ nav .site-name a.brand:hover {
   transform: none;
 }
 
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  color: var(--text-muted);
+  border-radius: 0;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  /* color: #f5f5f5; */
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: #111111;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
 /* Log out button in nav (class="secondary" from layout) */
 button.secondary {
@@ -138,7 +177,7 @@ button.secondary {
 /* MAIN & FOOTER */
 
 main.container {
-  flex: 1; 
+  flex: 1;
   margin-top: 1.5rem;
   margin-bottom: 2rem;
 }
@@ -315,15 +354,26 @@ a.button-secondary:hover {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 20px;
 }
 
-.stock-page #headline {
-  margin-bottom: 0.25rem;
+#stock_info {
+  display: flex;
+}
+
+#stock_text {
+  padding: 0 10px;
+
+}
+
+#stock_logo {
+  width: 15em;
+  border-radius: var(--radius-lg);
 }
 
 #chart_div {
   margin-top: 0.5rem;
-  background: var(--surface);
+  background: var(--primary-soft);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
   padding: 1rem;

@@ -13,6 +13,7 @@ db.exec(`
   description text
   );
 `);
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS prices (
   id integer primary key autoincrement, 
@@ -21,12 +22,22 @@ db.exec(`
   price real 
   );
 `);
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email TEXT,
     username TEXT,
     password TEXT
+  );
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS cart (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user TEXT NOT NULL,
+    symbol TEXT NOT NULL,
+    quantity INTEGER NOT NULL DEFAULT 1
   );
 `);
 
