@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+  .overlay
+    .login-window
+      h1 Welcome to GatorTrade!
+
+      form(method="POST", action="/login")
+        label(for="username") Username:
+        input(type="text", id="username", name="username", required)
+
+        label(for="password") Password:
+        input(type="password", id="password", name="password", required)
+
+        .buttons
+          button(type="submit" class="button-primary") Login
+          a.create-account-link.button-secondary(href="/register") Create Account
+
+      p.disclaimer
+        | By creating an account, you agree to absolve us of all responsibility and liability in perpetuity.
+        | GatorTrade is provided "as is" without warranty of any kind, either expressed or implied.

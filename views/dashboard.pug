@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  .dashboard
+    .dashboard-header
+      h1 My Account
+      p Welcome back, #{currentUser.username}!
+
+    .dashboard-grid
+      .card
+        h2 Account Overview
+        p
+          | Email: 
+          strong #{currentUser.email}
+        p
+          | Username: 
+          strong #{currentUser.username}
+
+      .card
+        h2 Quick Links
+        ul
+          li
+            a.button-secondary(href="/about") Learn about GatorTrade

@@ -1,7 +1,7 @@
 {
   "name": "final-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "We are going to create a web-page with a store front to buy and sell stocks on. It will also have a login feature that allows users to view their stock portfolio and performance.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,11 +12,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "better-sqlite3": "^12.5.0",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "pug": "^3.0.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milo-neumann/csc317-final.git"
+  },
+  "bugs": {
+    "url": "https://github.com/milo-neumann/csc317-final/issues"
+  },
+  "homepage": "https://github.com/milo-neumann/csc317-final#readme"
 }

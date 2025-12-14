@@ -20,18 +20,20 @@ function drawAxisTickColors() {
   data.addColumn("number", "");
   data.addRows(price_arrays);
   var options = {
+    
+    backgroundColor: 'transparent',    
     legend: { position: "none" },
     hAxis: {
       title: "Day",
       textStyle: {
-        color: "#01579b",
+        color: "#1f2933",
         fontSize: 20,
         fontName: "Arial",
         bold: true,
         italic: true,
       },
       titleTextStyle: {
-        color: "#01579b",
+        color: "#1f2933",
         fontSize: 20,
         fontName: "Arial",
         bold: false,
@@ -39,14 +41,15 @@ function drawAxisTickColors() {
       },
     },
     vAxis: {
+      format: '$#####.##',
       title: "Price",
       textStyle: {
-        color: "#1a237e",
-        fontSize: 20,
+        color: "#1f2933",
+        fontSize: 16,
         bold: false,
       },
       titleTextStyle: {
-        color: "#1a237e",
+        color: "#1f2933",
         fontSize: 20,
         bold: false,
         italic: false,

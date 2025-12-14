@@ -1,0 +1,67 @@
+doctype html
+html
+  head
+    meta(charset="utf8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title #{title}
+    link(rel="stylesheet", href="/style.css")
+  body
+    if showNav !== false
+      header
+        nav.container
+          // LEFT SIDE: brand + main nav
+          ul.nav-left
+            if currentUser
+              li.site-name
+                a.brand(href="/dashboard") GatorTrade          
+              li
+                a(href="/dashboard") My Portfolio
+              li
+                .dropdown
+                  button.dropbtn Stocks&#x25BC;
+                  .dropdown-content
+                    a(href='../stock/abcd') Alphatronics
+                    a(href='../stock/auro') Aurora Market Labs
+                    a(href='../stock/blue') Blue Canary
+                    a(href='../stock/harb') Harborline Logistics
+                    a(href='../stock/hive') HiveMind Fitness
+                    a(href='../stock/live') LiveWire Studios
+                    a(href='../stock/nimb') Nimbus
+                    a(href='../stock/brew') Old Oak Brewing
+                    a(href='../stock/peak') Peak Finance
+                    a(href='../stock/orch') Quantum Orchard
+                    a(href='../stock/sola') Solaris Distributed Systems
+                    a(href='../stock/tide') TidalByte Tech
+                    a(href='../stock/verd') Verdant Cycle
+              li
+                a(href="/about") About
+            else
+              li.site-name
+                a.brand(href="/about") GatorTrade
+              li
+                a(href="/about") About
+
+          // RIGHT SIDE: greeting + cart + logout OR auth links
+          ul.nav-right
+            if currentUser
+              li
+                span Hey, #{currentUser.username}!
+              li
+                form(method="POST", action="/logout")
+                  button(type="submit" class="button-secondary") Logout
+              li
+                a.button-secondary(href="/cart") Cart
+            else
+              li
+                a(href="/login") Login
+              li
+                a(href="/register") Register
+
+    // MAIN CONTENT 
+    main.container
+      include partials/messages
+      block content
+
+    // FOOTER
+    footer.container.footer
+      small Built with Express, Pug, SQLite, sessions, and bcryptjs.
