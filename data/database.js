@@ -37,7 +37,8 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user TEXT NOT NULL,
     symbol TEXT NOT NULL,
-    quantity INTEGER NOT NULL DEFAULT 1
+    quantity INTEGER NOT NULL DEFAULT 1,
+    price REAL
   );
 `);
 

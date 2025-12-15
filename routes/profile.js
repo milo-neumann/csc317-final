@@ -29,8 +29,11 @@ router.get('/profile', requireLogin, async (req, res, next) => {
 
 // 🛒 Shopping cart (requires login)
 router.get('/cart', requireLogin, (req, res) => {
+  const cart_items = db.prepare("SELECT * FROM cart WHERE user = ?").all(findUserById(req.session.userId).username);
+
   res.render('cart', {
     title: 'Your Cart',
+    cart_items: cart_items,
   });
 });
 

@@ -1,6 +1,22 @@
 extends layout
-
+   
 block content
     .card.simple-page
-        h1 Your Cart
-        p This is where your selected stocks for checkout will go.
+        h1 #{currentUser.username}'s Cart
+        p Negative quantities indicate a SELL order.
+        table
+          thead
+            tr
+              th Symbol
+              th Quantity
+              th Price
+          tbody#dataTableBody
+        h3#total
+        button#purchase Purchase 
+        button#dump Clear All
+
+
+    script(type='text/javascript').
+      var cart_items = !{JSON.stringify(cart_items)};
+
+    script(src='/cart.js')

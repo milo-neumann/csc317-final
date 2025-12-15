@@ -7,15 +7,26 @@ block content
       #stock_text
         h1= stock.symbol
         h2= stock.name
-        h2= '$' + price_rows.at(-1).price.toPrecision(5)
+        h2= '$' + price_rows.at(-1).price.toFixed(2)
         p= stock.description
-
+        
   .card.stock-page
     #stock_chart
       #chart_div
       script(type='text/javascript' src='https://www.gstatic.com/charts/loader.js')
 
+  .card.stock-page
+    #buy_sell 
+      label(for='quantity') Enter quantity: 
+      input#quantity(type='number' name='quantity' placeholder='Qty')
+      button#buy_button Buy
+      button#sell_button Sell
+      p#cart_response
+      
     script(type='text/javascript').
       var prices = !{JSON.stringify(price_rows)};
-
+      var user = "#{currentUser.username}";
+      var symbol = "#{stock.symbol}";
+      var price = "#{price_rows.at(-1).price}";
+      
     script(src='/stock.js')

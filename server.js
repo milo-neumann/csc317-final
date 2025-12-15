@@ -79,12 +79,29 @@ app.get("/stock/:sym", (req, res) => {
   }
 });
 
+// adding to cart
+app.post('/api/add_to_cart', (req, res) => {
+  const insert = db.prepare("INSERT INTO cart (user, symbol, quantity, price) VALUES (?, ?, ?, ?);")
+  insert.run(req.body.user, req.body.symbol, req.body.quantity, req.body.price);
+  res.status(200).json({
+    message: 'hi',
+    data: req.body
+  });
+});
+
+// dumping cart
+app.post('/api/dump_cart', (req, res) => {
+  const dump = db.prepare("DELETE FROM cart WHERE user = ?;")
+  dump.run(req.body.user);
+  res.status(200).send('cart succesfully deleted for ' + req.body.user);  
+});
+
 // Route to fill out the price database
 app.get("/reseed", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "reseed.html"));
 });
 
-app.post("/api/reseed", (req, res) => {
+app.get("/api/reseed", (req, res) => {
   const rows = seed();
   res.json(rows);
 });

@@ -363,7 +363,6 @@ a.button-secondary:hover {
 
 #stock_text {
   padding: 0 10px;
-
 }
 
 #stock_logo {
@@ -377,6 +376,33 @@ a.button-secondary:hover {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
   padding: 1rem;
+}
+
+#buy_sell {
+  display: flex;
+}
+
+#buy_sell * {
+  margin-right: 10px;
+}
+
+/* CART */
+
+table {
+  border-collapse: collapse;
+  width: 50%;
+  margin: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
 }
 
 /* LOGIN / REGISTER OVERLAY */
