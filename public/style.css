@@ -953,6 +953,7 @@ th {
 @media (max-width: 768px) {
   .nav-header-right .nav-greeting {
     white-space: nowrap;  /* prevents wrapping "Hey, user!" */
+    /* FIXME */
   }
 }
 
@@ -1063,5 +1064,243 @@ nav.nav-mobile {
   border-bottom: 1px solid #ddd;
 }
 
+/* === PORTFOLIO PAGE (OVERRIDES) === */
 
+/* Layout: table + chart */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
+  gap: 1.5rem;
+  align-items: stretch;
+  margin-top: 1.5rem;
+}
+
+/* Stack on smaller screens (no horizontal scrolling) */
+@media (max-width: 900px) {
+  .portfolio-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portfolio-table-wrapper {
+    order: 1;
+  }
+
+  .portfolio-chart-wrapper {
+    order: 2;
+  }
+}
+
+/* Table card */
+.portfolio-table-wrapper {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Portfolio table itself – full-width, no forced horizontal scroll */
+.portfolio-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.portfolio-table th,
+.portfolio-table td {
+  padding: 0.6rem 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.9rem;
+}
+
+.portfolio-table th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  background: #f9fafb;
+  color: var(--text-muted);
+}
+
+.portfolio-table tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+.portfolio-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Chart card */
+.portfolio-chart-wrapper {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Make the chart canvas nicely responsive */
+.portfolio-chart-wrapper canvas {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 320px;
+}
+
+/* Allow dashboard to be wider so table doesn't overflow */
+.portfolio-grid {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* MOBILE NAV BAR FIX */
+.nav-mobile-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* spread brand and hamburger */
+  gap: 0.5rem;
+}
+
+/* Put greeting on the right side but before the hamburger */
+.nav-mobile-bar .nav-greeting {
+  margin-left: auto;      /* pushes greeting to the right */
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  white-space: nowrap;    /* prevents wrapping into 2 lines */
+}
+
+/* Ensure hamburger stays far right */
+.nav-toggle-label {
+  margin-left: 0.5rem;
+}
+
+/* FOOTER FIX */
+footer.footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem 0;
+  color: var(--text-muted);
+}
+
+footer.footer .copy {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+footer.footer .footer-links {
+  font-size: 0.9rem;
+  display: inline-block;
+  line-height: 1.4;
+}
+
+footer.footer .footer-links a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+footer.footer .footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* === ABOUT PAGE LAYOUT === */
+
+.about-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Centered header */
+.about-header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.about-kicker {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.about-header h1 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.about-intro {
+  margin: 0 auto;
+  max-width: 42rem;
+}
+
+/* Two-column layout for main content + sidebar */
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2.5fr) minmax(0, 1.5fr);
+  gap: 1.75rem;
+  align-items: flex-start;
+}
+
+/* Stack on smaller screens */
+@media (max-width: 900px) {
+  .about-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-aside {
+    order: -1; /* sidebar above main on mobile, optional */
+  }
+}
+
+/* Override generic .card ul (which removed bullets) just for About */
+.about-main ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.about-main li {
+  margin-bottom: 0.3rem;
+}
+
+/* Let About paragraphs breathe across the card instead of being cramped left */
+.about-page p {
+  max-width: none;
+}
+
+/* Sidebar cards */
+.about-aside-card {
+  background: var(--surface-soft);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  padding: 0.9rem 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.about-aside-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.about-aside-card ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.about-aside-card li {
+  margin-bottom: 0.35rem;
+}
+
+/* Outro paragraph spacing */
+.about-outro {
+  margin-top: 1rem;
+}
 
