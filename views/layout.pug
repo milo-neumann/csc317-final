@@ -76,9 +76,6 @@ html
             else
               span.nav-greeting Welcome to GatorTrade!
 
-            if currentUser
-              a.button-secondary(href="/cart") Cart
-
             // Hamburger toggle
             label.nav-toggle-label(for="nav-toggle" aria-label="Toggle navigation")
               span
@@ -101,6 +98,8 @@ html
                 li
                   form(method="POST", action="/logout")
                     button(type="submit" class="button-secondary") Logout
+                li 
+                  a.button-secondary(href="/cart") Cart
               else
                 li
                   a(href="/login") Login
@@ -116,9 +115,12 @@ html
 
     // FOOTER
     footer.container.footer
-      a(href="https://github.com/milo-neumann/csc317-final" target="_blank") Website Repo
-        |  | 
-      a(href="https://github.com/milo-neumann" target="_blank") Milo's GitHub
-        |  | 
-      a(href="https://github.com/BunnyBionics" target="_blank") Morgan's GitHub
       p.copy © GatorTrade 2025
+
+      .footer-links
+        a(href="https://github.com/milo-neumann/csc317-final" target="_blank") Website Repo
+        |  | 
+        a(href="https://github.com/milo-neumann" target="_blank") Milo's GitHub
+        |  | 
+        a(href="https://github.com/BunnyBionics" target="_blank") Morgan's GitHub
+

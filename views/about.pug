@@ -1,8 +1,78 @@
 extends layout
 
 block content
-    .card.simple-page
-        h1 About GatorTrade
-        p GatorTrade is a fictional trading platform built for our CSC317 final project.
-        p Our goal was to create a user-friendly interface for trading fictional stocks, complete with authentication, portfolio management, and a visualstock data simulation.
-           
+  .card.simple-page.about-page
+    .about-header
+      span.about-kicker Class Project · CSC317
+      h1 About GatorTrade
+      p.about-intro
+        | GatorTrade is a fictional stock trading platform designed to feel like a modern brokerage interface, while staying safely in the 
+        | realm of simulated data and practice trades.
+
+    .about-layout
+      .about-main
+        h2 What You Can Do on GatorTrade
+        ul
+          li Browse a catalog of fictional companies with playful but realistic descriptions.
+          li View detailed stock pages with historical price data and charts.
+          li Add buy and sell orders to your cart before confirming a transaction.
+          li Track your holdings on the portfolio dashboard and see how they change over time.
+          li Explore how front-end, back-end, and database layers work together in a cohesive app.
+
+        h2 How It Works (Behind the Scenes)
+        p
+          | Although the companies and prices are fictional, the underlying architecture is similar 
+          | to a real trading platform:
+        ul
+          li A database tracks users, positions, and cart items.
+          li Server-side routes handle authentication and portfolio logic.
+          li Views are rendered with Pug templates and styled with custom CSS.
+          li Charts and visualizations help turn raw data into something easier to understand.
+
+        h2 Design Process
+        p
+          | As a team of two students, we focused on building a polished user experience while 
+          | practicing key web development concepts. Some highlights from our process:
+        ul
+          li Building clean, readable code that is easy to extend.
+          li Designing a user interface that feels friendly and modern.
+          li Handling common edge cases like empty portfolios and invalid inputs.
+          li Practicing collaboration workflows with Git and GitHub.
+
+        p.about-outro
+          | GatorTrade isn’t a real trading platform and doesn’t use real money, but it reflects the 
+          | kind of user experience we’d want in a production-grade app. Thanks for taking the time 
+          | to explore our project!
+
+      .about-aside
+        .about-aside-card
+          h3 Project Snapshot
+          ul
+            li 
+              strong Course: 
+              |  CSC317 Web Development
+            li 
+              strong Type: 
+              |  Final project / demo trading platform
+            li 
+              strong Team size: 
+              |  2 students
+            li 
+              strong Focus: 
+              |  Full-stack features & UI polish
+
+        .about-aside-card
+          h3 Tech Stack Highlights
+          ul
+            li Node.js + Express backend
+            li Pug templates for server-rendered views
+            li Custom CSS for layout and components
+            li Client-side JavaScript for charts and cart behavior
+
+        .about-aside-card
+          h3 What We Practiced
+          ul
+            li Session and authentication handling
+            li RESTful routing and form handling
+            li Data visualization for portfolio performance
+            li Collaboration with Git and GitHub

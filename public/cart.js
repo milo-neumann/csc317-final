@@ -1,38 +1,72 @@
-// Calculate and display total
-let total = 0;
-for (const purchase of cart_items) {
-  total += purchase.price * purchase.quantity;
-}
-document.getElementById("total").innerText = "Total: $" + total.toFixed(2);
+// Calculate and display total + populate table in one pass,
+// handling negative quantities as "sell" orders.
+// Build the cart table, handle buys/sells, and totals
+renderCart();
 
-populateTable();
-
-// populates the cart
-function populateTable() {
+function renderCart() {
   const tableBody = document.getElementById("dataTableBody");
+  const totalElement = document.getElementById("total");
 
-  // Clear in case this is called again later
+  if (!tableBody || !totalElement || !Array.isArray(cart_items)) {
+    return;
+  }
+
   tableBody.innerHTML = "";
+  let total = 0;
 
-  // Loop through the data array
-  cart_items.forEach((purchase) => {
+  cart_items.forEach((purchase, index) => {
     const row = document.createElement("tr");
 
+    const qty = Number(purchase.quantity);
+    const rawPrice = Number(purchase.price);
+
+    const unitPrice = Math.abs(rawPrice);
+    const isSell = qty < 0;
+    const absQty = Math.abs(qty);
+
+    const signedValue = (isSell ? -1 : 1) * unitPrice * absQty;
+    total += signedValue;
+
+    // Symbol
     const symbol_cell = document.createElement("td");
     symbol_cell.textContent = purchase.symbol;
     row.appendChild(symbol_cell);
 
+    // Quantity
     const quantity_cell = document.createElement("td");
-    quantity_cell.textContent = purchase.quantity;
+    quantity_cell.textContent = qty;
     row.appendChild(quantity_cell);
 
+    // Line total (price column)
+    const lineTotal = unitPrice * absQty;
     const price_cell = document.createElement("td");
-    price_cell.textContent = purchase.price.toFixed(2);
+    price_cell.textContent = `${isSell ? "-" : ""}$${lineTotal.toFixed(2)}`;
     row.appendChild(price_cell);
+
+    // Action cell with delete button
+    const action_cell = document.createElement("td");
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Remove";
+    deleteBtn.className = "cart-delete-btn";
+    deleteBtn.addEventListener("click", () => {
+      removeCartItem(index);
+    });
+    action_cell.appendChild(deleteBtn);
+    row.appendChild(action_cell);
 
     tableBody.appendChild(row);
   });
+
+  totalElement.innerText = "Total: $" + total.toFixed(2);
 }
+
+// Remove a single item from the cart (front-end) and re-render
+function removeCartItem(index) {
+  if (!Array.isArray(cart_items)) return;
+  cart_items.splice(index, 1);
+  renderCart();
+}
+
 
 // Safely figure out the current username
 function getUsername() {
