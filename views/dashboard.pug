@@ -4,38 +4,83 @@ block content
   .card.simple-page
     h1 My Portfolio
 
-    if !currentUser
+    if !positions || positions.length === 0
+      p You don’t own any stocks yet.
       p
-        | You must 
-        a(href="/login") log in
-        |  to view your portfolio.
-    else if positions.length === 0
-      p
-        | You don’t own any stocks yet.
-        | 
-        a(href="/storefront") Browse the store
-        |  to get started!
+        | Head over to the&nbsp;
+        a(href="/storefront") store
+        |  to start building your portfolio.
     else
-      table.portfolio-table
-        thead
-          tr
-            th Symbol
-            th Name
-            th Quantity
-            th Avg Buy Price
-            th Current Price
-            th Change
-            th Return %
-            th Current Value
-        tbody
-          each pos in positions
-            tr(class=pos.isUp ? 'price-up' : 'price-down')
-              td
-                a(href=`/stock/${pos.symbol}`)= pos.symbol
-              td= pos.name
-              td= pos.total_quantity
-              td $#{pos.avg_purchase_price_str}
-              td $#{pos.current_price_str}
-              td= pos.priceChange_str
-              td= pos.pctChange_str + '%'
-              td $#{pos.totalValue_str}
+      // Table (left) + Pie chart (right)
+      .portfolio-grid
+        .portfolio-table-wrapper
+          h2 Holdings
+          table.portfolio-table
+            thead
+              tr
+                th Symbol
+                th Name
+                th Quantity
+                th Avg Buy Price
+                th Current Price
+                th Change
+                th Return %
+                th Current Value
+            tbody
+              each pos in positions
+                tr(class=pos.isUp ? 'price-up' : 'price-down')
+                  td
+                    a(href=`/stock/${pos.symbol}`)= pos.symbol
+                  td= pos.name
+                  td= pos.total_quantity
+                  td $#{pos.avg_purchase_price_str}
+                  td $#{pos.current_price_str}
+                  td= pos.priceChange_str
+                  td= pos.pctChange_str + '%'
+                  td $#{pos.totalValue_str}
+
+        .portfolio-chart-wrapper
+          h2 Allocation by Value
+          canvas#portfolioChart
+
+      // Expose positions to JS
+      script.
+        const positionsData = !{JSON.stringify(positions)};
+
+      // Chart.js CDN
+      script(src="https://cdn.jsdelivr.net/npm/chart.js")
+
+      // Pie chart script
+      script.
+        (function () {
+          if (!Array.isArray(positionsData) || positionsData.length === 0) return;
+
+          const canvas = document.getElementById('portfolioChart');
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+
+          const labels = positionsData.map(p => p.symbol);
+          const data = positionsData.map(p => {
+            if (typeof p.totalValue === 'number') return p.totalValue;
+            if (typeof p.totalValue_str === 'string') return parseFloat(p.totalValue_str);
+            return 0;
+          });
+
+          new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: labels,
+              datasets: [{
+                data: data
+              }]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'bottom'
+                }
+              }
+            }
+          });
+        })();

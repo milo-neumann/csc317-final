@@ -37,11 +37,15 @@ router.get('/dashboard', requireLogin, (req, res) => {
 
   const rows = db.prepare(sql).all(user.username);
 
+  let portfolioTotal = 0;
+
   const positions = rows.map((row) => {
     const priceChange = row.current_price - row.avg_purchase_price;
     const pctChange = (priceChange / row.avg_purchase_price) * 100;
     const totalValue = row.current_price * row.total_quantity;
     const totalCost = row.avg_purchase_price * row.total_quantity;
+
+    portfolioTotal += totalValue;
 
     return {
       symbol: row.symbol,
@@ -51,7 +55,8 @@ router.get('/dashboard', requireLogin, (req, res) => {
       current_price_str: row.current_price.toFixed(2),
       priceChange_str: priceChange.toFixed(2),
       pctChange_str: pctChange.toFixed(2),
-      totalValue_str: totalValue.toFixed(2),
+      totalValue,                            // numeric for chart
+      totalValue_str: totalValue.toFixed(2), // formatted for table
       totalCost_str: totalCost.toFixed(2),
       isUp: priceChange >= 0,
     };
@@ -60,6 +65,7 @@ router.get('/dashboard', requireLogin, (req, res) => {
   res.render('dashboard', {
     title: 'My Portfolio',
     positions,
+    portfolioTotal_str: portfolioTotal.toFixed(2),
   });
 });
 
