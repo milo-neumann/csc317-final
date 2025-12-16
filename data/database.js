@@ -42,5 +42,15 @@ db.exec(`
   );
 `);
 
+db.exec(`
+  CREATE TABLE IF NOT EXISTS purchases (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user TEXT NOT NULL,
+    symbol TEXT NOT NULL,
+    quantity INTEGER NOT NULL,
+    purchase_price REAL NOT NULL
+  );
+`);
+
 
 module.exports = db;

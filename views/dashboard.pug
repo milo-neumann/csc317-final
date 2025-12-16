@@ -1,23 +1,41 @@
 extends layout
 
 block content
-  .dashboard
-    .dashboard-header
-      h1 My Account
-      p Welcome back, #{currentUser.username}!
+  .card.simple-page
+    h1 My Portfolio
 
-    .dashboard-grid
-      .card
-        h2 Account Overview
-        p
-          | Email: 
-          strong #{currentUser.email}
-        p
-          | Username: 
-          strong #{currentUser.username}
-
-      .card
-        h2 Quick Links
-        ul
-          li
-            a.button-secondary(href="/about") Learn about GatorTrade
+    if !currentUser
+      p
+        | You must 
+        a(href="/login") log in
+        |  to view your portfolio.
+    else if positions.length === 0
+      p
+        | You don’t own any stocks yet.
+        | 
+        a(href="/storefront") Browse the store
+        |  to get started!
+    else
+      table.portfolio-table
+        thead
+          tr
+            th Symbol
+            th Name
+            th Quantity
+            th Avg Buy Price
+            th Current Price
+            th Change
+            th Return %
+            th Current Value
+        tbody
+          each pos in positions
+            tr(class=pos.isUp ? 'price-up' : 'price-down')
+              td
+                a(href=`/stock/${pos.symbol}`)= pos.symbol
+              td= pos.name
+              td= pos.total_quantity
+              td $#{pos.avg_purchase_price_str}
+              td $#{pos.current_price_str}
+              td= pos.priceChange_str
+              td= pos.pctChange_str + '%'
+              td $#{pos.totalValue_str}
