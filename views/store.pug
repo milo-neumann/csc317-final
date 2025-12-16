@@ -1,6 +1,22 @@
 extends layout
 
 block content
-    .card.simple-page
-        h1 Store
-        p Browse and buy stocks here.
+  .store-container
+    h1 Store
+    p Browse all available stocks below.
+
+    .store-grid
+      each stock in stocks
+        .store-card
+          a.store-card-link(href='/stock/' + stock.symbol)
+            .store-card-header
+              h2.store-symbol= stock.symbol
+              p.store-name= stock.name
+
+            .store-card-body
+              //- Show latest_price if present, otherwise 0
+              p.store-price $#{stock.latest_price || 0}
+              p.store-description= stock.description || 'No description available.'
+
+            .store-card-footer
+              span.store-detail-link View details →

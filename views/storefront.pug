@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  .store-header
+    h1 Store
+    p Explore all available stocks and view details instantly.
+
+  .store-grid
+    each stock in stocks
+      .store-card
+        a.store-card-link(href='/stock/' + stock.symbol)
+          .store-card-content
+            .store-card-header
+              h2.store-symbol= stock.symbol
+              p.store-name= stock.name
+
+            .store-card-price $#{Number(stock.latest_price || 0).toFixed(2)}
+
+            .store-card-description
+              | #{stock.description || "No description available."}
+
+            .store-card-footer
+              span View details →
