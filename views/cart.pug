@@ -18,5 +18,6 @@ block content
 
     script(type='text/javascript').
       var cart_items = !{JSON.stringify(cart_items)};
+      var user = "#{currentUser.username}";
 
     script(src='/cart.js')

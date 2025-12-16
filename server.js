@@ -115,6 +115,55 @@ app.post('/api/add_to_cart', (req, res) => {
   });
 });
 
+// for portfolio page (keep record of purchases)
+app.post('/api/checkout', (req, res) => {
+  const user = req.body.user;
+  if (!user) {
+    return res.status(400).json({ error: 'Missing user.' });
+  }
+
+  const getCartItems = db.prepare(`
+    SELECT symbol, quantity, price
+    FROM cart
+    WHERE user = ?
+  `);
+  const cartItems = getCartItems.all(user);
+
+  if (cartItems.length === 0) {
+    return res.status(400).json({ error: 'Cart is empty.' });
+  }
+
+  const insertPurchase = db.prepare(`
+    INSERT INTO purchases (user, symbol, quantity, purchase_price)
+    VALUES (?, ?, ?, ?)
+  `);
+  const deleteCart = db.prepare(`
+    DELETE FROM cart
+    WHERE user = ?
+  `);
+
+  try {
+    const checkoutTxn = db.transaction(() => {
+      for (const item of cartItems) {
+        insertPurchase.run(
+          user,
+          item.symbol,
+          item.quantity,
+          item.price   // per-share price when it was added to cart
+        );
+      }
+      deleteCart.run(user);
+    });
+
+    checkoutTxn();
+
+    res.json({ success: true, message: 'Purchase complete!' });
+  } catch (err) {
+    console.error('Error during checkout:', err);
+    res.status(500).json({ error: 'Checkout failed on server.' });
+  }
+});
+
 // dumping cart
 app.post('/api/dump_cart', (req, res) => {
   const dump = db.prepare("DELETE FROM cart WHERE user = ?;")
