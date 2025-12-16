@@ -1,23 +1,29 @@
 extends layout
    
 block content
-    .card.simple-page
-        h1 #{currentUser.username}'s Cart
-        p Negative quantities indicate a SELL order.
-        table
-          thead
-            tr
-              th Symbol
-              th Quantity
-              th Price
-          tbody#dataTableBody
-        h3#total
-        button#purchase Purchase 
-        button#dump Clear All
+  .card.simple-page.cart-page
+    h1 #{currentUser.username}'s Cart
+    p Negative quantities indicate a SELL order.
+
+    table.cart-table
+      thead
+        tr
+          th Symbol
+          th Quantity
+          th Price
+          th Action
+      tbody#dataTableBody
 
 
-    script(type='text/javascript').
-      var cart_items = !{JSON.stringify(cart_items)};
-      var user = "#{currentUser.username}";
+    h3#total
 
-    script(src='/cart.js')
+    .cart-actions
+      button#purchase.button-primary Check Out 
+      button#dump Clear All
+
+  // pass data into cart.js exactly like before
+  script(type='text/javascript').
+    var cart_items = !{JSON.stringify(cart_items)};
+    var user = "#{currentUser.username}";
+
+  script(src='/cart.js')
