@@ -5,6 +5,7 @@ const session = require("express-session");
 const app = express();
 const db = require(path.join(__dirname, "data", "database.js"));
 const seed = require(path.join(__dirname, "data", "seed.js"));
+seed(); // Seed the database on server start (for store page)
 const PORT = process.env.PORT || 3000;
 
 // ----- VIEW ENGINE (Pug) -----
@@ -60,7 +61,32 @@ app.get("/", (req, res) => {
 
 // ----- OTHER ROUTES (stocks, reseed) -----
 
-// Stock symbols will bring up the stock template populated with data for that stock
+
+
+// testing
+app.get("/storefront", (req, res) => {
+  console.log(">>> /storefront ROUTE HIT <<<");
+
+  const stocks = db.prepare(`
+      SELECT
+        s.id, s.symbol, s.name, s.description,
+        (
+          SELECT p.price FROM prices p
+          WHERE p.stock_id = s.id
+          ORDER BY p.day DESC
+          LIMIT 1
+        ) AS latest_price
+      FROM stocks s
+      ORDER BY s.symbol ASC
+  `).all();
+
+  res.render("storefront", {
+    title: "Storefront",
+    stocks: stocks || [],
+  });
+});
+
+
 app.get("/stock/:sym", (req, res) => {
   const sym = req.params.sym.toUpperCase();
   const stock = db.prepare("select * from stocks WHERE symbol = ?").get(sym);
