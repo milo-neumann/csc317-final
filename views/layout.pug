@@ -8,12 +8,17 @@ html
   body
     if showNav !== false
       header
-        nav.container
-          // LEFT SIDE: brand + main nav
+        // DESKTOP NAV (shown on larger screens)
+        nav.container.nav-desktop
+          // LEFT: brand + main nav links
           ul.nav-left
+            li.site-name
+              if currentUser
+                a.brand(href="/dashboard") GatorTrade
+              else
+                a.brand(href="/about") GatorTrade
+
             if currentUser
-              li.site-name
-                a.brand(href="/dashboard") GatorTrade          
               li
                 a(href="/dashboard") My Portfolio
               li
@@ -22,28 +27,26 @@ html
                 .dropdown
                   button.dropbtn Stocks&#x25BC;
                   .dropdown-content
-                    a(href='../stock/abcd') Alphatronics
-                    a(href='../stock/auro') Aurora Market Labs
-                    a(href='../stock/blue') Blue Canary
-                    a(href='../stock/harb') Harborline Logistics
-                    a(href='../stock/hive') HiveMind Fitness
-                    a(href='../stock/live') LiveWire Studios
-                    a(href='../stock/nimb') Nimbus
-                    a(href='../stock/brew') Old Oak Brewing
-                    a(href='../stock/peak') Peak Finance
-                    a(href='../stock/orch') Quantum Orchard
-                    a(href='../stock/sola') Solaris Distributed Systems
-                    a(href='../stock/tide') TidalByte Tech
-                    a(href='../stock/verd') Verdant Cycle
+                    a(href="/stock/abcd") Alphatronics
+                    a(href="/stock/auro") Aurora Market Labs
+                    a(href="/stock/blue") Blue Canary
+                    a(href="/stock/harb") Harborline Logistics
+                    a(href="/stock/hive") HiveMind Fitness
+                    a(href="/stock/live") LiveWire Studios
+                    a(href="/stock/nimb") Nimbus
+                    a(href="/stock/brew") Old Oak Brewing
+                    a(href="/stock/peak") Peak Finance
+                    a(href="/stock/orch") Quantum Orchard
+                    a(href="/stock/sola") Solaris Distributed Systems
+                    a(href="/stock/tide") TidalByte Tech
+                    a(href="/stock/verd") Verdant Cycle
               li
                 a(href="/about") About
             else
-              li.site-name
-                a.brand(href="/about") GatorTrade
               li
                 a(href="/about") About
 
-          // RIGHT SIDE: greeting + cart + logout OR auth links
+          // RIGHT: Hey -> Logout/Login -> Cart (Cart far right)
           ul.nav-right
             if currentUser
               li
@@ -58,6 +61,53 @@ html
                 a(href="/login") Login
               li
                 a(href="/register") Register
+
+        // MOBILE NAV (shown on small screens)
+        nav.container.nav-mobile
+          // Top bar: brand, greeting, cart, hamburger
+          .nav-mobile-bar
+            if currentUser
+              a.brand(href="/dashboard") GatorTrade
+            else
+              a.brand(href="/about") GatorTrade
+
+            if currentUser
+              span.nav-greeting Hey, #{currentUser.username}!
+            else
+              span.nav-greeting Welcome to GatorTrade!
+
+            if currentUser
+              a.button-secondary(href="/cart") Cart
+
+            // Hamburger toggle
+            label.nav-toggle-label(for="nav-toggle" aria-label="Toggle navigation")
+              span
+              span
+              span
+
+          // Hidden checkbox controlling the dropdown menu
+          input#nav-toggle.nav-toggle(type="checkbox")
+
+          // Dropdown menu content
+          .nav-mobile-menu
+            ul
+              if currentUser
+                li
+                  a(href="/dashboard") My Portfolio
+                li
+                  a(href="/storefront") Store
+                li
+                  a(href="/about") About
+                li
+                  form(method="POST", action="/logout")
+                    button(type="submit" class="button-secondary") Logout
+              else
+                li
+                  a(href="/login") Login
+                li
+                  a(href="/register") Register
+                li
+                  a(href="/about") About
 
     // MAIN CONTENT 
     main.container

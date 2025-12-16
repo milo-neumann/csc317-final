@@ -174,12 +174,119 @@ button.secondary {
   cursor: pointer;
 }
 
+/* for responsive hamburger button nav bar */
+/* === RESPONSIVE NAV STRUCTURE (keeps existing colors) === */
+
+/* Stack header row (logo + cart + hamburger) above the menu ONLY on mobile */
+@media (max-width: 768px) {
+  nav.container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+
+/* Top bar: logo left, hamburger + cart on the right */
+.nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Right side of top bar: hamburger then cart (cart stays far right) */
+.nav-header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* Hide the checkbox itself */
+.nav-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hamburger icon */
+.nav-toggle-label {
+  display: none; /* only shown on small screens */
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.nav-toggle-label span {
+  display: block;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--text-main); /* uses your existing text color */
+}
+
+/* Menu layout (desktop default) */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+  width: 100%;
+}
+
+/* Make sure nav-left/right still align nicely inside nav-menu */
+.nav-menu .nav-left,
+.nav-menu .nav-right {
+  display: flex;
+}
+
+/* === MOBILE BEHAVIOR === */
+@media (max-width: 768px) {
+  /* Show hamburger on small screens */
+  .nav-toggle-label {
+    display: flex;
+  }
+
+  /* Hide the full menu by default on small screens */
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .nav-menu ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.35rem;
+  }
+
+  .nav-menu a,
+  .nav-menu span,
+  .nav-menu button {
+    width: 100%;
+    text-align: left;
+  }
+
+  /* When checkbox is checked, show the menu (dropdown) */
+  .nav-toggle:checked + .nav-menu {
+    display: flex;
+  }
+}
+
+
 /* MAIN & FOOTER */
 
 main.container {
   flex: 1;
   margin-top: 1.5rem;
   margin-bottom: 2rem;
+  max-width: 100%;
+  width: 100%;
 }
 
 .footer {
@@ -357,6 +464,13 @@ a.button-secondary:hover {
   margin-bottom: 20px;
 }
 
+/* Center all top-level page titles inside <main> */
+main h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+
 #stock_info {
   display: flex;
 }
@@ -485,10 +599,25 @@ th {
 
 .store-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
+  gap: 1.75rem;
   padding: 0 1rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
+
+/* 2 columns on small/medium screens */
+@media (min-width: 640px) {
+  .store-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 4 columns on desktop */
+@media (min-width: 1024px) {
+  .store-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 
 .store-card {
   background: var(--surface);
@@ -550,3 +679,188 @@ th {
   color: var(--accent);
   text-align: right;
 }
+
+/* portfolio styling */
+.portfolio-summary {
+  margin-bottom: 1rem;
+}
+
+.portfolio-total,
+.portfolio-count {
+  font-weight: bold;
+  margin-left: 0.25rem;
+}
+
+/* for mobile */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+
+/* NEW: stack table + chart on smaller screens */
+@media (max-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portfolio-chart-wrapper {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;           /* let it fill width instead of centering */
+    margin-top: 0.5rem;
+  }
+
+  .portfolio-table-wrapper {
+    margin-bottom: 0.5rem;
+  }
+}
+
+
+.portfolio-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.portfolio-table th,
+.portfolio-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.portfolio-chart-wrapper {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* Greeting next to hamburger / on desktop */
+.nav-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nav-header-right .nav-greeting {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* On mobile, keep greeting visible in header while menu collapses */
+@media (max-width: 768px) {
+  .nav-header-right .nav-greeting {
+    white-space: nowrap;  /* prevents wrapping "Hey, user!" */
+  }
+}
+
+/* === DESKTOP vs MOBILE NAV === */
+
+/* By default: show desktop nav, hide mobile nav */
+nav.nav-mobile {
+  display: none;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  /* Hide desktop nav entirely on mobile */
+  nav.nav-desktop {
+    display: none;
+  }
+
+  /* Show mobile nav */
+  nav.nav-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .nav-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .nav-mobile-bar .nav-greeting {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .nav-mobile-menu {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .nav-mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  .nav-mobile-menu a,
+  .nav-mobile-menu button {
+    width: 100%;
+    text-align: left;
+  }
+
+  /* Hidden checkbox for hamburger */
+  .nav-toggle {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Hamburger icon (3 lines) */
+  .nav-toggle-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+  }
+
+  .nav-toggle-label span {
+    display: block;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--text-main);
+  }
+
+  /* When checkbox is checked, show the mobile menu */
+  .nav-toggle:checked ~ .nav-mobile-menu {
+    display: flex;
+  }
+}
+
+/* responsive table wrapper (portfolio) */
+.portfolio-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Make the portfolio table scroll horizontally if needed */
+.portfolio-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px; /* forces horizontal scroll on very small screens */
+}
+
+.portfolio-table th,
+.portfolio-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+
+
