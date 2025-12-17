@@ -2,7 +2,7 @@
 ### Morgan Bell & Milo Neumann (Group 2)
 ### Stock Trading Platform
 
-Find our deployed website at https://gatortrade-xe9z.onrender.com/
+Find our deployed website at https://gatortrade-xe9z.onrender.com/ 
 You must create an account to access the stock trading site!
 
 
@@ -27,6 +27,7 @@ https://www.figma.com/make/OAw71m89MRs7huBarIJp2h/Entity-Relationship-Diagram?no
 
 - **Database Methods (`server.js`)**  
   Performs queries such as retrieving a stock by symbol and fetching its associated price history, using the schema represented in the diagram above.
+
 
 
 
